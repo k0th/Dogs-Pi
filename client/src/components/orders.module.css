@@ -1,0 +1,12 @@
+.selectorder{
+    border-radius: 5px;
+    padding: 10px 40 px;
+    border: none;
+    outline: none;
+    width: 200px;
+    height: 35px;
+    margin-right: 5px;
+    text-align: center;
+    color:#00a1f5;
+    cursor: pointer;
+}

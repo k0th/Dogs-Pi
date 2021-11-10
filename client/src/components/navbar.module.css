@@ -1,0 +1,60 @@
+.container{
+    display: flex;
+    background-color: #00a1f5;
+    flex-direction: row;
+    align-items: center;
+}
+.item1{
+    flex:1;
+}
+.item2{
+    flex:3;
+}
+.item3{
+    flex:1;
+}
+
+/* Aqui es la barra secundaria de navegación*/
+
+.container1{
+    display: flex;
+    background-color:#6ddef6;
+    flex-direction: row;
+    align-items: center; 
+    padding: 10px;
+
+}
+
+.item4{
+    flex:4;
+    text-decoration: none;
+    font-size:small;
+    justify-content: center;
+}
+.item5{
+    flex:1;
+    font-size:small;
+}
+.item6{
+    flex:1;
+    font-size:small;
+}
+.item7{
+    flex:1;
+    font-size:small;
+}
+/* Aqui es la barra secundaria de navegación de los details */
+.button{
+    background-color: #5ac5dd;
+    border: none;
+    border-radius:  5px;
+    padding: 10px  50px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    color:white;
+}
+.button:hover{
+    background-color:#0d4870;
+    
+}

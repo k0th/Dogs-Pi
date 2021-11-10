@@ -1,0 +1,35 @@
+.div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    padding: 5px;
+    margin: 5px;
+    background:white;
+    width: 600px;
+    height: 610px;
+    border-radius: 20px;
+    box-shadow: 9px 9px 5px -2px rgba(0,0,0,0.11);
+}
+
+.img{
+    border-radius: 10px;
+}
+
+.h3{
+    color:#00a1f5;
+}
+
+.title{
+    color: #636363;
+    font-weight: bold;
+    margin: 2px;
+}
+
+.descriptions{
+    color: #636363;
+    font-size: 15px;
+    margin: 2px;
+}
