@@ -6,7 +6,7 @@ export const TEMPERAMENTS_DOGS = 'TEMPERAMENTS_DOGS';
 export const SORT = 'SORT'
 export const SORT_RAZA = 'SORT_RAZA'
 export const SORT_TEMPERAMENTS = 'SORT_TEMPERAMENTS'
-//export const SEARCH_TEMPERAMENTS = 'SEARCH_TEMPERAMENTS'
+
 
 //Funcipon que manda cargar los perritos
 export function getDogs(){

@@ -49,6 +49,7 @@ router.get("/dogs/", (req, res, next)=>{
     let nombreApi = axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
     let nombreDb = Dogs.findAll();
     let newArray=[];
+    let newArrayDb = [];
     Promise.all([
         nombreApi,
         nombreDb
@@ -64,15 +65,30 @@ router.get("/dogs/", (req, res, next)=>{
             }
             newArray.push(obj)
         }
+        for (var i=0; i<nombreDb.length; i++ ){
+            let obj = {
+                id:nombreDb[i].id,
+                name: nombreDb[i].name,
+                image: nombreDb[i].image,
+                temperament: nombreDb[i].temperament,
+                weight: nombreDb[i].weight
+            }
+            newArrayDb.push(obj)
+           }
+           let unionArray = [...newArray, ...newArrayDb]
         let totalArray = []
-        for(var i=0; i < newArray.length; i++){
-            let names=newArray[i].name
+        for(var i=0; i < unionArray.length; i++){
+            let names=unionArray[i].name
             if(names.includes(name)){
-                totalArray.push(newArray[i])
+                totalArray.push(unionArray[i])
             }
         } 
         if(totalArray.length === 0){
-            res.send([{name: "No se encuentra el nombre de la raza que buscas", image:"https://www.relativobranding.com/notfoundperrito.jpg"}])
+            res.send([{name: "No se encuentra el nombre de la raza que buscas", 
+                       image:"https://www.relativobranding.com/pi/notfound.jpg",
+                       weight: "Ninguno",
+                       temperament:"Ninguno"
+                    }])
         } else{
             res.status(200).send(totalArray)
         }
@@ -85,6 +101,7 @@ router.get("/dogs/:id", (req, res, next)=>{
     let razasidApi =  axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);
     let razasidDb = Dogs.findAll();
     let newArrayid = [];
+    let newArrayDb = [];
     Promise.all([
         razasidApi,
         razasidDb
@@ -103,23 +120,83 @@ router.get("/dogs/:id", (req, res, next)=>{
         }
         newArrayid.push(obj)
        }
+       for (var i=0; i<razasidDb.length; i++ ){
+        let obj = {
+            id:razasidDb[i].id,
+            name: razasidDb[i].name,
+            image: razasidDb[i].image,
+            temperament: razasidDb[i].temperament,
+            weight: razasidDb[i].weight
+        }
+        newArrayDb.push(obj)
+       }
+       let unionArray = [...newArrayid, ...newArrayDb]
        let totalArrayid = []
-       for(var i=0; i<newArrayid.length; i++){
-           let idraza = newArrayid[i].id
-           //console.log(idraza)
-           if(idraza === parseInt(id)){
-               totalArrayid.push(newArrayid[i])
-               //console.log("Lo encontré")
+       for(var i=0; i<unionArray.length; i++){
+           let idraza = unionArray[i].id
+           if (idraza === id){
+              totalArrayid.push(unionArray[i])
+           }
+           if (idraza === parseInt(id)){
+              totalArrayid.push(unionArray[i])
            }
        } 
        if(totalArrayid.length === 0){
-           res.send([{name: "No se encuentra el nombre de la raza que buscas", image:"https://www.relativobranding.com/notfoundperrito.jpg"}])
+           res.send([
+               {name: "No se encuentra el nombre de la raza que buscas", 
+                image:"https://www.relativobranding.com/pi/notfound.jpg",
+                weight: "Ninguno",
+                temperament:"Ninguno"
+        }])
        } else{
            res.status(200).send(totalArrayid)
        }
     })
  
 })
+
+// /// OBTIENE UN NUEVO PERRITO POR ID
+// router.get("/dogs/:id", (req, res, next)=>{
+//     const { id } = req.params
+//     let razasidApi =  axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);
+//     let razasidDb = Dogs.findAll();
+//     let newArrayid = [];
+//     let newArrayDb = [];
+//     Promise.all([
+//         razasidApi,
+//         razasidDb
+//     ]).then((response)=>{
+//         const [razasidApi, razasidDb] = response
+//        let razas = razasidApi.data
+//        for (var i=0; i<razas.length; i++ ){
+//         let obj = {
+//             id: razas[i].id,
+//             name: razas[i].name,
+//             image: razas[i].image.url,
+//             temperament: razas[i].temperament,
+//             weight: razas[i].weight.metric,
+//             height: razas[i].height.metric,
+//             years: razas[i].life_span
+//         }
+//         newArrayid.push(obj)
+//        }
+//        let totalArrayid = []
+//        for(var i=0; i<newArrayid.length; i++){
+//            let idraza = newArrayid[i].id
+//            //console.log(idraza)
+//            if(idraza === parseInt(id)){
+//                totalArrayid.push(newArrayid[i])
+//                //console.log("Lo encontré")
+//            }
+//        } 
+//        if(totalArrayid.length === 0){
+//            res.send([{name: "No se encuentra el nombre de la raza que buscas", image:"https://www.relativobranding.com/notfoundperrito.jpg"}])
+//        } else{
+//            res.status(200).send(totalArrayid)
+//        }
+//     })
+ 
+// })
 
 /// CREA UN NUEVO DOG
 // router.post("/", async (req, res, next)=>{

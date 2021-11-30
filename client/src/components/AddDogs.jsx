@@ -6,35 +6,41 @@ import { useHistory } from "react-router"
 var adddogscs = require ('./adddogs.module.css')
 
 export default function AddDogs(){
-    // let temperamentsAdd = useSelector((state)=>state.dogstemperaments)
+    let temperamentsAdd = useSelector((state)=>state.dogstemperaments)
 
     const[dogs, setDogs] = useState({})
+    const[temp, setTemp] = useState("")
     let history = useHistory()
+
     function onInputChange(e){
         e.preventDefault()
         setDogs ({
             ...dogs,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         })
     }
 
+
+
     function onSubmit(e){
+        dogs.temperament = temp
         e.preventDefault()
         axios.post("http://localhost:3001/api/dogs", dogs).then(()=>[
             history.push('/dogs')
         ])
+        alert("Has agregado con éxito un Dog.")
     }
 
+    
     // let temp = ""
-
-    // function onSelectChange(e){
-    //     e.preventDefault()
-    //     temp = e.target.value + "," + temp
-    //     console.log(temp)
-    // }
+    function onSelectChange(e){
+        e.preventDefault()
+        // temp = e.target.value + "," + temp
+        // console.log(temp)
+        setTemp(e.target.value +", "+ temp)
+    }
 
     return <div className={adddogscs.div}><form onSubmit={onSubmit} className={adddogscs.container}>
-        <p>¡Gracias por usar nuestra aplicación!, agrega aqui un nuevo Dog</p>
         <label htmlFor="" className={adddogscs.label}>Nombre</label>
         <input onChange={onInputChange} name="name" type="text" value={dogs.name} className={adddogscs.input}></input>
         <label htmlFor="" className={adddogscs.label}>Imagen</label>
@@ -46,9 +52,7 @@ export default function AddDogs(){
         <label htmlFor="" className={adddogscs.label}>Edad</label>
         <input onChange={onInputChange} name="years" type="text" value={dogs.years} className={adddogscs.input}></input>
         <label htmlFor="" className={adddogscs.label}>Temperamento</label>
-        <input onChange={onInputChange} name="temperament" type="text" value={dogs.temperament} className={adddogscs.input}></input>
-        <input type="submit"  className={adddogscs.button} ></input>
-        {/* <select name="select" onChange={onSelectChange}>
+        <select name="select" onChange={onSelectChange} className={adddogscs.select}>
          {
            temperamentsAdd.map((el)=>{  
              return (
@@ -56,7 +60,9 @@ export default function AddDogs(){
              )
            })  
          }
-     </select> */}
+     </select>
+     <p className={adddogscs.p}>{temp}</p>
+     <input type="submit"  className={adddogscs.button} ></input>
     </form> 
    </div>
    
